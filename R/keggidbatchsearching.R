@@ -5,8 +5,8 @@
 #'
 #' @param data Data frame containing compound information with:
 #' \itemize{
-#'   \item `Standardized_Name`: Standardized compound names
-#'   \item `Formula`: Molecular formulas
+#'   \item `Standard_Name`: Standardized compound names
+#'   \item `"Standard_Formula`: Standardized Molecular formulas
 #' }
 #' @param similarity_threshold Similarity threshold for auto-acceptance (default = 0.8)
 #' @param delay Delay between API calls in seconds (default = 1)
@@ -40,13 +40,13 @@
 #' @examples
 #' \dontrun{
 #' sample_data <- data.frame(
-#'   Standardized_Name = c("Glucose", "Testosterone", "Caffeine"),
-#'   Formula = c("C6H12O6", "C19H28O2", "C8H10N4O2")
+#'   Standard_Name = c("Glucose", "Testosterone", "Caffeine"),
+#'   Standard_Formula = c("C6H12O6", "C19H28O2", "C8H10N4O2")
 #' )
 #'
 #' mapped_data <- keggidbatchsearching(sample_data)
 #'
-#' print(mapped_data[, c("Standardized_Name", "KEGG_ID", "Similarity", "Status")])
+#' print(mapped_data[, c("Standard_Name", "KEGG_ID", "Similarity", "Status")])
 #' }
 #'
 #' @seealso \code{\link{keggidsearching}} for single compound matching
@@ -54,7 +54,7 @@
 
 keggidbatchsearching <- function(data, similarity_threshold = 0.8, delay = 1) {
   # 1. 验证输入数据
-  required_cols <- c("Standardized_Name", "Formula")
+  required_cols <- c("Standard_Name", ""Standard_Formula")
   if (!all(required_cols %in% names(data))) {
     missing_cols <- setdiff(required_cols, names(data))
     stop("输入数据框缺少必要的列: ", paste(missing_cols, collapse = ", "))
@@ -71,8 +71,8 @@ keggidbatchsearching <- function(data, similarity_threshold = 0.8, delay = 1) {
 
   # 3. 处理每个化合物
   for (i in seq_len(nrow(data))) {
-    name <- data$Standardized_Name[i]
-    formula <- data$Formula[i]
+    name <- data$Standard_Name[i]
+    formula <- data$"Standard_Formula[i]
 
     # 3.1 使用keggidsearching函数搜索KEGG ID
     result <- keggidsearching(name, formula, similarity_threshold)
