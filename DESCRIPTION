@@ -1,0 +1,19 @@
+Package: mapmeta
+Title: KEGG Metabolite Identifier Mapping Tool
+Version: 0.1.0
+Authors@R: 
+    person("botao", "zhang", email = "3048986896@qq.com", role = c("aut", "cre"))
+Description: Efficiently map compound names and formulas to KEGG IDs using advanced string matching and KEGG API integration. Provides batch processing capabilities with automatic verification thresholds.
+License: MIT
+Depends:
+    R (>= 4.0.0)
+Imports: 
+    KEGGREST,
+    stringr,
+    utils
+Suggests: 
+    testthat
+VignetteBuilder: knitr
+RoxygenNote: 7.3.2
+Encoding: UTF-8
+BuildVignettes: TRUE  # 确保启用文档构建

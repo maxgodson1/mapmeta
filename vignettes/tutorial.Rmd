@@ -1,0 +1,70 @@
+---
+title: "mapmeta 使用教程"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# mapmeta 使用教程
+
+## 1. 数据预处理
+
+```{r preprocessing, eval=FALSE}
+library(mapmeta)
+# 创建示例数据集
+sample_data <- data.frame(
+  Raw_Name = c(" D-Glucose (2S,3R)", "Testosterone [Similar to Androgen]", "-123-Cholestane-1-ene"),
+  Raw_Formula = c(" C6 H12 O6 ", "C19H28O2", " Na Cl ")
+)
+
+# 标准化名称和分子式
+sample_data$Standardized_Name <- standardize_name(sample_data$Raw_Name)
+sample_data$Standardized_Formula <- standardize_formula(sample_data$Raw_Formula)
+```
+
+## 2. 单个代谢物匹配
+
+```{r single-match, eval=FALSE}
+# 匹配葡萄糖
+glucose_match <- keggidsearching(
+  name = "Glucose",
+  formula = "C6H12O6",
+  similarity_threshold = 0.8
+)
+
+# 查看匹配结果
+print(glucose_match)
+```
+
+## 3. 批量匹配代谢物
+
+```{r batch-match, eval=FALSE}
+# 批量匹配（设置相似度阈值和API延迟）
+mapped_data <- keggidbatchsearching(
+  data = sample_data,
+  similarity_threshold = 0.75,
+  delay = 1.5  # 推荐1-2秒延迟以避免KEGG API限制
+)
+
+# 查看匹配结果
+head(mapped_data[, c("Raw_Name", "KEGG_ID", "KEGG_Name", "Similarity", "Status")])
+```
+
+## 4. 结果验证与筛选
+
+```{r verification, eval=FALSE}
+# 筛选需要人工验证的匹配
+needs_verification <- subset(mapped_data, Status == "Needs verification")
+
+# 查看相似度较低的匹配
+low_similarity <- subset(mapped_data, Similarity < 0.6)
+```
+
+## 5. 保存结果
+
+```{r save-results, eval=FALSE}
+# 保存为CSV文件
+write.csv(mapped_data, "kegg_mapping_results.csv", row.names = FALSE)
+```
