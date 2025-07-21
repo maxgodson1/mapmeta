@@ -15,13 +15,13 @@ vignette: >
 library(mapmeta)
 # 创建示例数据集
 sample_data <- data.frame(
-  Raw_Name = c(" D-Glucose (2S,3R)", "Testosterone [Similar to Androgen]", "-123-Cholestane-1-ene"),
-  Raw_Formula = c(" C6 H12 O6 ", "C19H28O2", " Na Cl ")
+  Name = c(" D-Glucose (2S,3R)", "Testosterone [Similar to Androgen]", "-123-Cholestane-1-ene"),
+  Formula = c(" C6 H12 O6 ", "C19H28O2", " Na Cl ")
 )
 
 # 标准化名称和分子式
-sample_data$Standardized_Name <- standardize_name(sample_data$Raw_Name)
-sample_data$Standardized_Formula <- standardize_formula(sample_data$Raw_Formula)
+sample_data$Standard_Name <- standardize_name(sample_data$Name)
+sample_data$Standard_Formula <- standardize_formula(sample_data$Formula)
 ```
 
 ## 2. 单个代谢物匹配
@@ -49,7 +49,7 @@ mapped_data <- keggidbatchsearching(
 )
 
 # 查看匹配结果
-head(mapped_data[, c("Raw_Name", "KEGG_ID", "KEGG_Name", "Similarity", "Status")])
+head(mapped_data[, c("Name", "KEGG_ID", "KEGG_Name", "Similarity", "Status")])
 ```
 
 ## 4. 结果验证与筛选
