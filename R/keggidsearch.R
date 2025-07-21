@@ -100,7 +100,10 @@ keggidsearching <- function(name, formula, similarity_threshold = 0.8) {
       "Needs verification"
     )
 
-    # 6. 返回匹配结果
+    # 6. 去除id前缀
+    best_match_id = str_extract(best_match_id, "C\\d+")
+
+    # 7. 返回匹配结果
     return(list(
       KEGG_ID = best_match_id,
       KEGG_Name = best_match_name,
@@ -109,7 +112,7 @@ keggidsearching <- function(name, formula, similarity_threshold = 0.8) {
     ))
 
   }, error = function(e) {
-    # 7. 错误处理
+    # 8. 错误处理
     return(list(
       KEGG_ID = NA,
       KEGG_Name = NA,
