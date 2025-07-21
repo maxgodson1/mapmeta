@@ -101,7 +101,7 @@ keggidsearching <- function(name, formula, similarity_threshold = 0.8) {
     )
 
     # 6. 去除id前缀
-    best_match_id = str_extract(best_match_id, "C\\d+")
+    best_match_id = stringr::str_extract(best_match_id, "C\\d+")
 
     # 7. 返回匹配结果
     return(list(
