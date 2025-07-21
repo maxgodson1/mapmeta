@@ -35,12 +35,21 @@
 #' @export
 
 standardize_name <- function(names_vector) {
-  names_vector %>%
-    str_replace_all("\\[.*?\\]", "") %>%
-    str_replace_all("\\s*\\(.*?\\)", "") %>%
-    str_replace_all("(?:^|\\s)-\\d+[-A-Za-z]*", "") %>%
-    str_replace_all("-\\d+(-|$)", "\\1") %>%
-    str_replace("norchol", "norcholane") %>%
-    trimws() %>%
-    str_replace_all("--+", "-")
+  # 移除管道操作符，改用嵌套函数调用
+  result <- trimws(
+    str_replace_all(
+      str_replace(
+        str_replace_all(
+          str_replace_all(
+            str_replace_all(
+              str_replace_all(
+                names_vector,
+                "\\[.*?\\]", ""),
+              "\\s*\\(.*?\\)", ""),
+            "(?:^|\\s)-\\d+[-A-Za-z]*", ""),
+          "-\\d+(-|$)", "\\1"),
+        "norchol", "norcholane"),
+      "--+", "-")
+  )
+  return(result)
 }
