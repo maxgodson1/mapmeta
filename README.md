@@ -40,13 +40,13 @@ library(mapmeta)
 
 # 1. 创建示例数据集
 data <- data.frame(
-  Raw_Name = c("Glucose", "Testosterone", "Caffeine"),
-  Raw_Formula = c("C6H12O6", "C19H28O2", "C8H10N4O2")
+  Name = c("Glucose", "Testosterone", "Caffeine"),
+  Formula = c("C6H12O6", "C19H28O2", "C8H10N4O2")
 )
 
 # 2. 数据标准化
-data$Name <- standardize_name(data$Raw_Name)
-data$Formula <- standardize_formula(data$Raw_Formula)
+data$Standard_Name <- standardize_name(data$Name)
+data$Standard_Formula <- standardize_formula(data$Formula)
 
 # 3. 匹配KEGG ID
 # 单个匹配
